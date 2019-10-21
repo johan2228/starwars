@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star Wars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css">
+    <style>
+        h1 {
+            color: yellow;
+        }
+
+        h2 {
+            color: yellow;
+        }
+
+        h3 {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-dark is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    <p style="color:yellow;">Personajes</p>
+                </h1>
+                <h2 class="subtitle">
+                    <p style="color:yellow;">Star Wars</p>
+                    <br>
+                    <div id="app">
+                        <button class="button is-warning" @click="consumiendoAPI()">Informacion</button>
+                        <br>
+                        <hr>
+                        <h2>{{ respuesta.name }}</h2>
+                        <ul>
+                            <li v-for="film in respuesta">
+                            </li>
+                        </ul>
+                        <hr>
+                        <div v-if="respuesta">
+                            <h3>Peso</h3>
+                            <pre>{{ respuesta.height }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>masa</h3>
+                            <pre>{{ respuesta.mass }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>Color de cabello</h3>
+                            <pre>{{ respuesta.hair_color }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>Color de piel</h3>
+                            <pre>{{ respuesta.skin_color }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>Color de ojos</h3>
+                            <pre>{{ respuesta.eye_color }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>Año de nacimiento</h3>
+                            <pre>{{ respuesta.birth_year }}</pre>
+                        </div>
+                        <div v-if="respuesta">
+                            <h3>Genero</h3>
+                            <pre>{{ respuesta.gender }}</pre>
+                        </div>
+                    </div>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+                    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                    <script>
+                        var app = new Vue({
+                            el: '#app',
+                            data: {
+                                respuesta: ''
+                            },
+                            methods: {
+                                async consumiendoAPI() {
+                                    await axios.get('https://swapi.co/api/people/1/')
+                                        .then(res => {
+                                            console.log(res);
+                                            this.respuesta = res.data;
+                                        })
+                                        .catch(err => console.log('Error', err));
+                                }
+                            }
+                        })
+                    </script>
+                </h2>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
